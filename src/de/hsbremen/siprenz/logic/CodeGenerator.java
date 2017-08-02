@@ -3,6 +3,7 @@ package de.hsbremen.siprenz.logic;
 import java.util.ArrayList;
 
 import de.hsbremen.siprenz.model.Connection;
+import de.hsbremen.siprenz.model.Global;
 import de.hsbremen.siprenz.model.Node;
 import de.hsbremen.siprenz.model.Simulation;
 import de.hsbremen.siprenz.utils.FileUtils;
@@ -15,6 +16,7 @@ public class CodeGenerator {
 	
 	public void generate(Simulation simulation) {
 		
+		Global global = simulation.getGlobal();
 		ArrayList<Node> nodes = simulation.getNodes();
 		ArrayList<Connection> connections = simulation.getConnections();
 		
@@ -64,7 +66,7 @@ public class CodeGenerator {
 		code.append("	string configFileOut = \"\";\n");
 		code.append("	bool pcapTracing = false;\n");
 		code.append("	bool asciiTracing = false;\n");
-		code.append("	double duration = 30.0;\n");
+		code.append("	double duration = " + global.getDuration() + ";\n");
 		code.append("	string filePrefix = \"generatedp2p\";\n\n");
 		
 		// command line parameters
@@ -79,6 +81,8 @@ public class CodeGenerator {
 		code.append("	cmd.Parse (argc, argv);\n\n");
 		
 		code.append("	NS_LOG_INFO (\"Reading Input.\");\n\n");
+		
+		//TODO: Add missing lines
 		
 		code.append("	NS_LOG_INFO (\"Building P2P topology.\");\n\n");
 		

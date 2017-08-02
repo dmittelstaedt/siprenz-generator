@@ -9,12 +9,16 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import de.hsbremen.siprenz.model.Connection;
+import de.hsbremen.siprenz.model.Global;
 import de.hsbremen.siprenz.model.Node;
 import de.hsbremen.siprenz.model.Simulation;
 
 public class XmlParser {
 	
 	public void write() {
+		
+		// TODO: remove simulation statements and add simulation as argument		
+		Global global = new Global(30.0);
 		
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		nodes.add(new Node("s1", "server", 1.0, 10.0));
@@ -25,6 +29,7 @@ public class XmlParser {
 		connections.add(new Connection(nodes.get(0), nodes.get(1), "5Mbps", "2ms", "10.1.1.0", "255.255.255.252"));
 		
 		Simulation simulation = new Simulation();
+		simulation.setGlobal(global);
 		simulation.setNodes(nodes);
 		simulation.setConnections(connections);
 		

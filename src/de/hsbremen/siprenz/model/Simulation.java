@@ -9,9 +9,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Simulation {
 	
+	private Global global;
 	private ArrayList<Connection> connections;
 	private ArrayList<Node> nodes;
 	
+	public Global getGlobal() {
+		return global;
+	}
+
+	@XmlElement
+	public void setGlobal(Global global) {
+		this.global = global;
+	}
+
 	public ArrayList<Connection> getConnections() {
 		return connections;
 	}
