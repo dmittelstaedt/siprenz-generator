@@ -3,8 +3,10 @@ package de.hsbremen.siprenz.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder={"source", "destination", "dataRate", "delay", "ip", "subnet"})
 public class Connection {
 	
 	private Node source;

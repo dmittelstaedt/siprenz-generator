@@ -14,7 +14,7 @@ public class CodeGenerator {
 		
 	}
 	
-	public void generate(Simulation simulation) {
+	public void generate(Simulation simulation, String pathName) {
 		
 		Global global = simulation.getGlobal();
 		ArrayList<Node> nodes = simulation.getNodes();
@@ -30,9 +30,8 @@ public class CodeGenerator {
 		}
 		
 		// TODO implement a logger
-		System.out.println("Starting Generation");
 		
-		String pathName = "/home/david/Documents/Model/generated-model.cc";
+		pathName = "/home/david/Documents/Model/generated-model.cc";
 		StringBuilder code = new StringBuilder();
 		
 		// imports
@@ -82,13 +81,38 @@ public class CodeGenerator {
 		
 		code.append("	NS_LOG_INFO (\"Reading Input.\");\n\n");
 		
-		//TODO: Add missing lines
+		code.append("	if (! configFileIn.empty()) {\n");
+		code.append("		Config::SetDefault (\"ns3::ConfigStore::Filename\", StringValue (configFileIn));\n");
+		code.append("		Config::SetDefault (\"ns3::ConfigStore::Mode\", StringValue (\"Load\"));\n");
+		code.append("		Config::SetDefault (\"ns3::ConfigStore::FileFormat\", StringValue (\"RawText\"));\n");
+		code.append("		ConfigStore inputConfig;\n");
+		code.append("		inputConfig.ConfigureDefaults ();\n");
+		code.append("	}\n\n");
+		
+		code.append("	NS_LOG_INFO (\"ConfigFileIn: \" + configFileIn);");
+		code.append("	NS_LOG_INFO (\"ConfigFileOut: \" + configFileOut);\n");
+		code.append("	NS_LOG_INFO (\"Protocol: \" + protocol);\n");
+		code.append("	NS_LOG_INFO (\"Server: \" + server);\n");
+		code.append("	NS_LOG_INFO (\"Client: \" + client);\n");
+		code.append("	NS_LOG_INFO (\"DataRate: \" + dataRate);\n");
+		code.append("	NS_LOG_INFO (\"Delay: \" + delay);\n");
+		code.append("	if (pcapTracing) {\n");
+		code.append("		NS_LOG_INFO (\"PcapTracing: true\");\n");
+		code.append("	} else {\n");
+		code.append("		NS_LOG_INFO (\"PcapTracing: false\");\n");
+		code.append("	}\n");
+		code.append("	if (asciiTracing) {\n");
+		code.append("		NS_LOG_INFO (\"AsciiTracing: true\");\n");
+		code.append("	} else {\n");
+		code.append("		NS_LOG_INFO (\"AsciiTracing: false\");\n");
+		code.append("	}\n");
+		code.append("	NS_LOG_INFO (\"Duration: \" + StringHelper::toString(duration) + \" sec\");\n\n");     
 		
 		code.append("	NS_LOG_INFO (\"Building P2P topology.\");\n\n");
 		
 		code.append("	NS_LOG_INFO (\"Creating Nodes.\");\n");
 		code.append("	NodeContainer nodes;\n");
-		code.append("	nodes.Create ("+ simulation.getNodes().size() + ");\n\n");
+		code.append("	nodes.Create ("+ nodes.size() + ");\n\n");
 		
 		// point to point helper
 		code.append("	NS_LOG_INFO (\"Creating PointToPointHelper.\");\n");
@@ -170,7 +194,16 @@ public class CodeGenerator {
 		code.append("	}\n\n");
 		
 		code.append("	Simulator::Stop (Seconds(duration));\n\n");
-				
+		
+		code.append("	if (! configFileOut.empty()) {\n");
+		code.append("		Config::SetDefault (\"ns3::ConfigStore::Filename\", StringValue (configFileOut));\n");
+		code.append("		Config::SetDefault (\"ns3::ConfigStore::FileFormat\", StringValue (\"RawText\"));\n");
+		code.append("		Config::SetDefault (\"ns3::ConfigStore::Mode\", StringValue (\"Save\"));\n");
+		code.append("		ConfigStore outputConfig;\n");
+		code.append("		outputConfig.ConfigureDefaults ();\n");
+		code.append("		outputConfig.ConfigureAttributes ();\n");
+		code.append("	}\n\n");
+		
 		// starting the simulation
 		code.append("	NS_LOG_INFO (\"Running Simulation.\");\n");
 		code.append("	Simulator::Run ();\n");
@@ -178,9 +211,6 @@ public class CodeGenerator {
 		code.append("	NS_LOG_INFO (\"Simulation done.\");\n\n");	     
 		code.append("	return 0;\n}\n");
 		
-		System.out.println("Finishing Generation");
-		
-		System.out.println("Writing code to file");
 		FileUtils.createFile(code.toString(), pathName);
 	}
 

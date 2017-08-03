@@ -7,13 +7,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Global {
 	
 	private double duration;
+	private String protocol;
 	
 	public Global() {
 		
 	}
 	
-	public Global(double duration) {
+	public Global(double duration, String protocol) {
 		this.duration = duration;
+		this.protocol = protocol;
 	}
 
 	public double getDuration() {
@@ -23,6 +25,15 @@ public class Global {
 	@XmlElement
 	public void setDuration(double duration) {
 		this.duration = duration;
+	}
+
+	public String getProtocol() {
+		return protocol;
+	}
+
+	@XmlElement
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
 	}
 	
 }
