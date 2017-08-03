@@ -6,16 +6,37 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
+import de.hsbremen.siprenz.model.gen.CodeProps;
+import de.hsbremen.siprenz.model.gen.XmlProps;
+
 public class CmdParser {
 	
 	private String args[];
 	private Options options;
+	private XmlProps xmlProps;
+	private CodeProps codeProps;
 	
 	public CmdParser(String args[]) {
 		this.args = args;
 		init();
 	}
 	
+	public XmlProps getXmlProps() {
+		return xmlProps;
+	}
+
+//	private void setXmlProps(XmlProps xmlProps) {
+//		this.xmlProps = xmlProps;
+//	}
+
+	public CodeProps getCodeProps() {
+		return codeProps;
+	}
+
+//	private void setCodeProps(CodeProps codeProps) {
+//		this.codeProps = codeProps;
+//	}
+
 	private void init() {
 		options = new Options();
 		
@@ -42,6 +63,7 @@ public class CmdParser {
 		System.out.println("SimulationGenerator version 1.0.0");
 	}
 	
+	//TODO: different RCs for create and generate 
 	public int parse() {
 		int returnCode=1;
 		CommandLineParser parser = new DefaultParser();
