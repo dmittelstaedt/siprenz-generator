@@ -1,4 +1,4 @@
-package de.hsbremen.siprenz.model;
+package de.hsbremen.siprenz.model.xml;
 
 import java.util.ArrayList;
 

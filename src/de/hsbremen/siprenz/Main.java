@@ -10,12 +10,13 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
+import de.hsbremen.siprenz.logic.CmdParser;
 import de.hsbremen.siprenz.logic.CodeGenerator;
 import de.hsbremen.siprenz.logic.XmlParser;
-import de.hsbremen.siprenz.model.Connection;
-import de.hsbremen.siprenz.model.Global;
-import de.hsbremen.siprenz.model.Node;
-import de.hsbremen.siprenz.model.Simulation;
+import de.hsbremen.siprenz.model.xml.Connection;
+import de.hsbremen.siprenz.model.xml.Global;
+import de.hsbremen.siprenz.model.xml.Node;
+import de.hsbremen.siprenz.model.xml.Simulation;
 
 public class Main {
 	
@@ -26,46 +27,12 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		LOGGER.info("Test output");
+//		LOGGER.info("Test output");
 		
-		Options options = new Options();
+		CmdParser cmdParser = new CmdParser(args);
+		int rc = cmdParser.parse();
 		
-		options.addOption("h", "help", false, "display help");
-		options.addOption("v", "version", false, "display version");
-		
-		// create init xml file
-		options.addOption("c", "create", false, "create xml file");
-		options.addOption("n", "nodes", true, "number of nodes");
-		options.addOption("o", "output", true, "output file");
-		
-		// create code
-		options.addOption("g", "gen", false, "generate code");
-		options.addOption("i", "input", true, "input file");
-		
-		CommandLineParser parser = new DefaultParser();
-		HelpFormatter formatter = new HelpFormatter();
-		CommandLine cmd = null;
-		
-		try {
-			cmd = parser.parse(options, args);
-		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
-			formatter.printHelp("SimGen", options);
-		}
-		
-		if (cmd.hasOption("help")) {
-			formatter.printHelp("SimGen", options);
-		}
-		
-		if (cmd.hasOption("create") && cmd.hasOption("gen")) {
-			System.out.println("Only one can specified!");
-			System.exit(-1);
-		}
-		
-		if (cmd.hasOption("nodes")) {
-			String nodes = cmd.getOptionValue("nodes");
-			System.out.println("Number of nodes: " + nodes);
-		}
+		System.out.println("ReturnCode: " + rc);
 		
 //		String pathName = "/home/david/Documents/Model/simulation.xml";
 //		

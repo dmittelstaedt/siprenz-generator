@@ -2,10 +2,10 @@ package de.hsbremen.siprenz.logic;
 
 import java.util.ArrayList;
 
-import de.hsbremen.siprenz.model.Connection;
-import de.hsbremen.siprenz.model.Global;
-import de.hsbremen.siprenz.model.Node;
-import de.hsbremen.siprenz.model.Simulation;
+import de.hsbremen.siprenz.model.xml.Connection;
+import de.hsbremen.siprenz.model.xml.Global;
+import de.hsbremen.siprenz.model.xml.Node;
+import de.hsbremen.siprenz.model.xml.Simulation;
 import de.hsbremen.siprenz.utils.FileUtils;
 
 public class CodeGenerator {

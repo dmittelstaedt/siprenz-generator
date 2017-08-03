@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import de.hsbremen.siprenz.model.Simulation;
+import de.hsbremen.siprenz.model.xml.Simulation;
 
 public class XmlParser {
 	
