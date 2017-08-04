@@ -7,7 +7,6 @@ import de.hsbremen.siprenz.model.xml.Global;
 import de.hsbremen.siprenz.model.xml.Node;
 import de.hsbremen.siprenz.model.xml.Simulation;
 
-//TODO: Refactor SimCreator
 public class SimCreator {
 	
 	//TODO: check wheter nodesCount is greater than 2

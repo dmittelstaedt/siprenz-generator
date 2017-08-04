@@ -18,9 +18,9 @@ public class XmlParser {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Simulation.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
+			// TODO: remove output to console
 			jaxbMarshaller.marshal(simulation, file);
 			jaxbMarshaller.marshal(simulation, System.out);
 

@@ -1,5 +1,6 @@
 package de.hsbremen.siprenz.logic;
 
+import de.hsbremen.siprenz.model.gen.CodeProps;
 import de.hsbremen.siprenz.model.gen.XmlProps;
 import de.hsbremen.siprenz.model.num.CmdParseStatus;
 import de.hsbremen.siprenz.model.xml.Simulation;
@@ -10,6 +11,7 @@ public class Controller {
 	private CmdParser cmdParser;
 	private SimCreator simCreator;
 	private XmlParser xmlParser;
+	private CodeGenerator codeGenerator;
 	
 	public Controller(String args[]) {
 		this.args = args;
@@ -25,12 +27,16 @@ public class Controller {
 			break;
 			
 		case CREATEXML:
+			System.out.println("Creating XML");
 			createXml();
+			System.out.println("Creating XML finished successfully");
 			System.exit(CmdParseStatus.OK.returnCode());
 			break;
 			
 		case GENCODE:
+			System.out.println("Generating Code");
 			genCode();
+			System.out.println("Generating Code finished successfully");
 			System.exit(CmdParseStatus.OK.returnCode());
 			break;
 			
@@ -39,6 +45,7 @@ public class Controller {
 			break;
 			
 		case ILLEGAL:
+			System.out.println("Illegal combination of arguments");
 			System.exit(CmdParseStatus.ILLEGAL.returnCode());
 			break;
 
@@ -53,17 +60,23 @@ public class Controller {
 		cmdParser = new CmdParser(args);
 		simCreator = new SimCreator();
 		xmlParser = new XmlParser();
+		codeGenerator = new CodeGenerator();
 	}
 	
 	private void createXml() {
 		XmlProps xmlProps = cmdParser.getXmlProps();
-		Simulation simulation = simCreator.create(xmlProps.getNodesCount());
-		xmlParser.write(simulation, xmlProps.getOutputFile());
-		System.out.println("Creating XML finished successfully");
+		if (xmlProps != null) {
+			Simulation simulation = simCreator.create(xmlProps.getNodesCount());
+			xmlParser.write(simulation, xmlProps.getOutputFile());
+		}
 	}
 	
 	private void genCode() {
-		
+		CodeProps codeProps = cmdParser.getCodeProps();
+		if (codeProps != null) {
+			Simulation simulation = xmlParser.read(codeProps.getInputFile());
+			codeGenerator.generate(simulation, codeProps.getOutputFile());
+		}
 	}
 
 }

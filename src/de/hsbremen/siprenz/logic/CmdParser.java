@@ -46,7 +46,7 @@ public class CmdParser {
 		options.addOption("h", "help", false, "display help");
 		options.addOption("v", "version", false, "display version");
 		
-		// create init xml file
+		// create xml
 		options.addOption("c", "create", false, "create xml file");
 		options.addOption("n", "nodes", true, "number of nodes");
 		options.addOption("o", "output", true, "output file");
@@ -77,12 +77,14 @@ public class CmdParser {
 			return CmdParseStatus.ERROR;
 		}
 		
+		// print help
 		if (cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
 				!cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
 			printHelp();
 			return CmdParseStatus.OK;
 		}
 		
+		// print version
 		if (!cmd.hasOption("help") && cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
 				!cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
 			printVersion();
@@ -92,7 +94,6 @@ public class CmdParser {
 		// create xml
 		if (!cmd.hasOption("help") && !cmd.hasOption("version") && cmd.hasOption("create") && cmd.hasOption("nodes") && 
 				cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
-			System.out.println("Creating XML");
 			setXmlProps(new XmlProps(Integer.parseInt(cmd.getOptionValue("nodes")), cmd.getOptionValue("output")));
 			return CmdParseStatus.CREATEXML;
 		}
@@ -100,12 +101,10 @@ public class CmdParser {
 		// generate code
 		if (!cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
 				cmd.hasOption("output") && cmd.hasOption("generate") && cmd.hasOption("input")) {
-			System.out.println("Generating Code");
 			setCodeProps(new CodeProps(cmd.getOptionValue("input"), cmd.getOptionValue("output")));
 			return CmdParseStatus.GENCODE;
 		}
 		
-		System.out.println("Illegal combination of arguments");
 		return CmdParseStatus.ILLEGAL;
 	}
 

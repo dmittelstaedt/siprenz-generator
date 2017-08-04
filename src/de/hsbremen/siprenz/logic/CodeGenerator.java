@@ -10,10 +10,6 @@ import de.hsbremen.siprenz.utils.FileUtils;
 
 public class CodeGenerator {
 	
-	public CodeGenerator() {
-		
-	}
-	
 	public void generate(Simulation simulation, String pathName) {
 		
 		Global global = simulation.getGlobal();
@@ -29,9 +25,6 @@ public class CodeGenerator {
 			}
 		}
 		
-		// TODO implement a logger
-		
-		pathName = "/home/david/Documents/Model/generated-model.cc";
 		StringBuilder code = new StringBuilder();
 		
 		// imports
@@ -212,6 +205,25 @@ public class CodeGenerator {
 		code.append("	return 0;\n}\n");
 		
 		FileUtils.createFile(code.toString(), pathName);
+	}
+	
+	private void generateBuild() {
+		
+		StringBuilder code = new StringBuilder();
+		
+		code.append("import ns3waf\n\n");
+		
+		code.append("def configure(conf):\n");
+		code.append("	conf.load('compiler_c')\n");
+		code.append("	conf.load('compiler_cxx')\n");
+		code.append("	ns3waf.check_modules(conf, ['core', 'point-to-point', 'internet', " +
+				"'network', 'applications', 'csma'], mandatory = True)\n\n");
+		
+		code.append("def build(bld):\n");
+		code.append("bld.build_a_script('dce', needed = ['core', 'point-to-point', 'network', " +
+				"'applications', 'dce', 'mobility'], target='bin/dce-iec-simple-p2p', " +
+				"source=['dce-iec-simple-p2p.cc', 'ccnx/misc-tools.cc', 'utils/ip-helper.cc', " +
+				"'utils/string-helper.cc'] )\n");
 	}
 
 }
