@@ -62,10 +62,9 @@ public class CmdParser {
 	}
 	
 	private void printVersion() {
-		System.out.println("SimulationGenerator version 1.0.0");
+		System.out.println("simgen - SimulationGenerator version 1.0.0");
 	}
 	
-	//TODO: different RCs for create and generate 
 	public CmdParseStatus parse() {
 		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
@@ -106,7 +105,7 @@ public class CmdParser {
 			return CmdParseStatus.GENCODE;
 		}
 		
-		System.out.println("Illegal arguments combination");
+		System.out.println("Illegal combination of arguments");
 		return CmdParseStatus.ILLEGAL;
 	}
 

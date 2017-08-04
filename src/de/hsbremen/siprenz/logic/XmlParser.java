@@ -29,13 +29,13 @@ public class XmlParser {
 			}
 	}
 	
-	public Simulation read() {
+	public Simulation read(String pathName) {
 		
 		Simulation simulation;
 		
 		try {
 
-			File file = new File("/home/david/Documents/Model/simulation.xml");
+			File file = new File(pathName);
 			JAXBContext jaxbContext = JAXBContext.newInstance(Simulation.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
