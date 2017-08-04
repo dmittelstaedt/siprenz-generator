@@ -8,6 +8,7 @@ import org.apache.commons.cli.Options;
 
 import de.hsbremen.siprenz.model.gen.CodeProps;
 import de.hsbremen.siprenz.model.gen.XmlProps;
+import de.hsbremen.siprenz.model.num.CmdParseStatus;
 
 public class CmdParser {
 	
@@ -25,19 +26,20 @@ public class CmdParser {
 		return xmlProps;
 	}
 
-//	private void setXmlProps(XmlProps xmlProps) {
-//		this.xmlProps = xmlProps;
-//	}
+	private void setXmlProps(XmlProps xmlProps) {
+		this.xmlProps = xmlProps;
+	}
 
 	public CodeProps getCodeProps() {
 		return codeProps;
 	}
 
-//	private void setCodeProps(CodeProps codeProps) {
-//		this.codeProps = codeProps;
-//	}
+	private void setCodeProps(CodeProps codeProps) {
+		this.codeProps = codeProps;
+	}
 
 	private void init() {
+		
 		options = new Options();
 		
 		// help and version
@@ -64,8 +66,7 @@ public class CmdParser {
 	}
 	
 	//TODO: different RCs for create and generate 
-	public int parse() {
-		int returnCode=1;
+	public CmdParseStatus parse() {
 		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
 		
@@ -74,37 +75,39 @@ public class CmdParser {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			printHelp();
-			return returnCode;
+			return CmdParseStatus.ERROR;
 		}
 		
 		if (cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
 				!cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
 			printHelp();
-			returnCode=0;
+			return CmdParseStatus.OK;
 		}
 		
 		if (!cmd.hasOption("help") && cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
 				!cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
 			printVersion();
-			returnCode=0;
+			return CmdParseStatus.OK;
 		}
 		
+		// create xml
 		if (!cmd.hasOption("help") && !cmd.hasOption("version") && cmd.hasOption("create") && cmd.hasOption("nodes") && 
 				cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
 			System.out.println("Creating XML");
-			returnCode=0;
+			setXmlProps(new XmlProps(Integer.parseInt(cmd.getOptionValue("nodes")), cmd.getOptionValue("output")));
+			return CmdParseStatus.CREATEXML;
 		}
 		
+		// generate code
 		if (!cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
 				cmd.hasOption("output") && cmd.hasOption("generate") && cmd.hasOption("input")) {
 			System.out.println("Generating Code");
-			returnCode=0;
+			setCodeProps(new CodeProps(cmd.getOptionValue("input"), cmd.getOptionValue("output")));
+			return CmdParseStatus.GENCODE;
 		}
 		
-		if (returnCode != 0) {
-			System.out.println("Illegal arguments combination");
-		}
-		return returnCode;
+		System.out.println("Illegal arguments combination");
+		return CmdParseStatus.ILLEGAL;
 	}
 
 }

@@ -6,11 +6,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder={"source", "destination", "dataRate", "delay", "ip", "subnet"})
+@XmlType(propOrder={"source", "destination", "type", "dataRate", "delay", "ip", "subnet"})
 public class Connection {
 	
 	private Node source;
 	private Node destination;
+	private String type;
 	private String dataRate;
 	private String delay;
 	private String ip;
@@ -20,10 +21,11 @@ public class Connection {
 		
 	}
 	
-	public Connection (Node source, Node destination, String dataRate, String delay, 
+	public Connection (Node source, Node destination, String type, String dataRate, String delay, 
 			String ip, String subnet) {
 		this.source = source;
 		this.destination = destination;
+		this.type = type;
 		this.dataRate = dataRate;
 		this.delay = delay;
 		this.ip = ip;
@@ -48,6 +50,15 @@ public class Connection {
 	@XmlIDREF
 	public void setDestination(Node destination) {
 		this.destination = destination;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	@XmlElement
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getDataRate() {

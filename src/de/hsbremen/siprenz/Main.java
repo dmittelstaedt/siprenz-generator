@@ -13,6 +13,7 @@ import org.apache.commons.cli.Options;
 import de.hsbremen.siprenz.logic.CmdParser;
 import de.hsbremen.siprenz.logic.CodeGenerator;
 import de.hsbremen.siprenz.logic.XmlParser;
+import de.hsbremen.siprenz.model.num.CmdParseStatus;
 import de.hsbremen.siprenz.model.xml.Connection;
 import de.hsbremen.siprenz.model.xml.Global;
 import de.hsbremen.siprenz.model.xml.Node;
@@ -30,9 +31,14 @@ public class Main {
 //		LOGGER.info("Test output");
 		
 		CmdParser cmdParser = new CmdParser(args);
-		int rc = cmdParser.parse();
+		CmdParseStatus cmdParseStatus = cmdParser.parse();
 		
-		System.out.println("ReturnCode: " + rc);
+		System.out.println("Status: " + cmdParseStatus.name());
+		System.out.println("ReturnCode: " + cmdParseStatus.returnCode());
+		
+		if (cmdParser.getXmlProps() != null) {
+			System.out.println("Number of Nodes: " + cmdParser.getXmlProps().getNodesCount());
+		}
 		
 //		String pathName = "/home/david/Documents/Model/simulation.xml";
 //		

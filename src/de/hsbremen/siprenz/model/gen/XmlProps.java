@@ -3,11 +3,11 @@ package de.hsbremen.siprenz.model.gen;
 public class XmlProps {
 	
 	private int nodesCount;
-	private String outFile;
+	private String outputFile;
 	
-	public XmlProps(int nodesCount, String outFile) {
+	public XmlProps(int nodesCount, String outputFile) {
 		this.nodesCount = nodesCount;
-		this.outFile = outFile;
+		this.outputFile = outputFile;
 	}
 	
 	public int getNodesCount() {
@@ -18,12 +18,12 @@ public class XmlProps {
 		this.nodesCount = nodesCount;
 	}
 	
-	public String getOutFile() {
-		return outFile;
+	public String getOutputFile() {
+		return outputFile;
 	}
 	
-	public void setOutFile(String outFile) {
-		this.outFile = outFile;
+	public void setOutputFile(String outFile) {
+		this.outputFile = outFile;
 	}
 	
 }

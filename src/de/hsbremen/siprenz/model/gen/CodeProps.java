@@ -2,28 +2,28 @@ package de.hsbremen.siprenz.model.gen;
 
 public class CodeProps {
 	
-	private String inFile;
-	private String outFile;
+	private String inputFile;
+	private String outputFile;
 	
-	public CodeProps(String inFile, String outFile) {
-		this.inFile = inFile;
-		this.outFile = outFile;
+	public CodeProps(String inputFile, String outputFile) {
+		this.inputFile = inputFile;
+		this.outputFile = outputFile;
 	}
-	
-	public String getInFile() {
-		return inFile;
+
+	public String getInputFile() {
+		return inputFile;
 	}
-	
-	public void setInFile(String inFile) {
-		this.inFile = inFile;
+
+	public void setInputFile(String inputFile) {
+		this.inputFile = inputFile;
 	}
-	
-	public String getOutFile() {
-		return outFile;
+
+	public String getOutputFile() {
+		return outputFile;
 	}
-	
-	public void setOutFile(String outFile) {
-		this.outFile = outFile;
+
+	public void setOutputFile(String outputFile) {
+		this.outputFile = outputFile;
 	}
 
 }
