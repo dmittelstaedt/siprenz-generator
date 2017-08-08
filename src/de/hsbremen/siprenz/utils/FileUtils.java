@@ -3,6 +3,12 @@ package de.hsbremen.siprenz.utils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileUtils {
 	
@@ -16,6 +22,41 @@ public class FileUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean createDir(String dirName) {
+		File dir = new File(dirName);
+		return dir.mkdir();
+	}
+	
+	// TODO: Exception Handling with if
+	public static boolean createDirs(String dirPath) {
+		File dir = new File(dirPath);
+		return dir.mkdirs();
+	}
+	
+	public static boolean isDir(String dirName) {
+		File dir = new File(dirName);
+		return dir.exists() && dir.isDirectory();
+	}
+	
+	// TODO: try catch
+	// http://roufid.com/how-to-delete-folder-recursively-in-java/
+	public static void deleteDir(String dirName) throws IOException {
+		Path directory = Paths.get(dirName);
+		Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+		   @Override
+		   public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+		       Files.delete(file);
+		       return FileVisitResult.CONTINUE;
+		   }
+
+		   @Override
+		   public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+		       Files.delete(dir);
+		       return FileVisitResult.CONTINUE;
+		   }
+		});
 	}
 
 }

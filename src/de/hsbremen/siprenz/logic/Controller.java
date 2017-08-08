@@ -18,6 +18,14 @@ public class Controller {
 		init();
 	}
 	
+	public void copy() {
+		
+		Simulation simulation = simCreator.create(3);
+		
+		String test = "/home/david/Documents/Test/Gen/";
+		codeGenerator.generate(simulation, test);
+	}
+	
 	public void start() {
 		CmdParseStatus cmdParseStatus = cmdParser.parse();
 		

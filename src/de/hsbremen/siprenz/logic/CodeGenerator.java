@@ -1,5 +1,7 @@
 package de.hsbremen.siprenz.logic;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import de.hsbremen.siprenz.model.xml.Connection;
@@ -7,10 +9,69 @@ import de.hsbremen.siprenz.model.xml.Global;
 import de.hsbremen.siprenz.model.xml.Node;
 import de.hsbremen.siprenz.model.xml.Simulation;
 import de.hsbremen.siprenz.utils.FileUtils;
+import de.hsbremen.siprenz.utils.StreamUtils;
 
 public class CodeGenerator {
 	
-	public void generate(Simulation simulation, String pathName) {
+	// Define resources
+	private final String[] utilsResources = {"ip-helper.h", "ip-helper.cc", "string-helper.h", "string-helper.cc"};
+	private final String utils = "/utils";
+	
+	public void generate(Simulation simulation, String dirName) {
+		
+		boolean isSave = false;
+		
+		isSave = generateDirStructure(dirName);
+		
+		if (isSave) {
+			System.out.println("Directory was created!");
+			generateUtils(dirName);
+			generateModel(simulation, dirName + "/dce-iec-gen-p2p.cc");
+			generateBuild(dirName + "/wscript");
+		} else {
+			System.out.println("Directory creation failed!");
+		}
+	}
+	
+	// TODO: message if directory exists
+	private boolean generateDirStructure(String dirName) {
+		
+		boolean isCreated = false;
+		
+		String utilsPath = dirName + utils;
+		
+		if (!FileUtils.isDir(utilsPath) && !FileUtils.isDir(dirName)) {
+			isCreated = FileUtils.createDirs(utilsPath);
+		}
+		
+		if (!FileUtils.isDir(utilsPath) && FileUtils.isDir(dirName)) {
+			isCreated = FileUtils.createDir(utilsPath);
+		}
+		
+		if (FileUtils.isDir(utilsPath) && FileUtils.isDir(dirName)) {
+			System.out.println("Test");
+			try {
+				FileUtils.deleteDir(dirName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			isCreated = FileUtils.createDirs(utilsPath);
+		}
+		
+		
+		return isCreated;
+	}
+	
+	private void generateUtils(String dirName) {
+		
+		for (int i=0; i<utilsResources.length; i++) {
+			InputStream inputStream = getClass().getResourceAsStream("/res/"+utilsResources[i]);
+			FileUtils.createFile(StreamUtils.getStringFromInputStream(inputStream), dirName + utils + "/" + utilsResources[i]);
+		}
+	}
+	
+	private void generateModel(Simulation simulation, String pathName) {
 		
 		Global global = simulation.getGlobal();
 		ArrayList<Node> nodes = simulation.getNodes();
@@ -207,7 +268,7 @@ public class CodeGenerator {
 		FileUtils.createFile(code.toString(), pathName);
 	}
 	
-	private void generateBuild() {
+	private void generateBuild(String pathName) {
 		
 		StringBuilder code = new StringBuilder();
 		
@@ -221,9 +282,11 @@ public class CodeGenerator {
 		
 		code.append("def build(bld):\n");
 		code.append("bld.build_a_script('dce', needed = ['core', 'point-to-point', 'network', " +
-				"'applications', 'dce', 'mobility'], target='bin/dce-iec-simple-p2p', " +
-				"source=['dce-iec-simple-p2p.cc', 'ccnx/misc-tools.cc', 'utils/ip-helper.cc', " +
+				"'applications', 'dce', 'mobility'], target='bin/dce-iec-gen-p2p', " +
+				"source=['dce-iec-gen-p2p.cc', 'ccnx/misc-tools.cc', 'utils/ip-helper.cc', " +
 				"'utils/string-helper.cc'] )\n");
+		
+		FileUtils.createFile(code.toString(), pathName);
 	}
 
 }
