@@ -104,7 +104,7 @@ public class CmdParser {
 		optionsHelp.addOption(options.getOption("generate"));
 		
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("simgen COMMAND", "\nCommands:", optionsHelp, "\nUse \"simgen -command_name -help\" for usage of command_name");
+		formatter.printHelp("simgen COMMAND [OPTION]...", "\nCommands:", optionsHelp, "\nUse \"simgen -command -help\" for usage of command");
 	}
 	
 	private void printVersion() {
@@ -137,8 +137,8 @@ public class CmdParser {
 		optionsHelp.addOption(options.getOption("generate"));
 		
 		HelpFormatter formatter = new HelpFormatter();
-		System.out.println("ERROR: Illegal Combination of Commands or Arguments\n");
-		formatter.printHelp("simgen COMMAND", "\nCommands:", optionsHelp, "\nUse \"simgen -command_name -help\" for usage of command_name");
+		System.out.println("Illegal combination of commands or options");
+		formatter.printHelp("simgen COMMAND [OPTION]...", "\nCommands:", optionsHelp, "\nUse \"simgen -command -help\" for usage of command");
 	}
 	
 	public CmdParseStatus parse() {
@@ -151,6 +151,13 @@ public class CmdParser {
 			System.out.println(e.getMessage());
 			printHelp();
 			return CmdParseStatus.ERROR;
+		}
+		
+		// print help
+		if (!cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
+				!cmd.hasOption("ofile") && !cmd.hasOption("generate") && !cmd.hasOption("ifile") && !cmd.hasOption("odir")) {
+			printHelp();
+			return CmdParseStatus.OK;
 		}
 		
 		// print help

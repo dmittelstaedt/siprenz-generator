@@ -26,6 +26,7 @@ public class Controller {
 		codeGenerator.generate(simulation, test);
 	}
 	
+	// TODO: move output to CodeGenerator and SimCreator 
 	public void start() {
 		CmdParseStatus cmdParseStatus = cmdParser.parse();
 		
