@@ -53,7 +53,6 @@ public class Controller {
 			break;
 			
 		case ILLEGAL:
-			System.out.println("Illegal combination of arguments");
 			System.exit(CmdParseStatus.ILLEGAL.returnCode());
 			break;
 
@@ -79,6 +78,7 @@ public class Controller {
 		}
 	}
 	
+	// TODO: change arguments to directory, not file
 	private void genCode() {
 		CodeProps codeProps = cmdParser.getCodeProps();
 		if (codeProps != null) {

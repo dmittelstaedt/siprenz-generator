@@ -4,6 +4,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 import de.hsbremen.siprenz.model.gen.CodeProps;
@@ -42,27 +43,102 @@ public class CmdParser {
 		
 		options = new Options();
 		
-		// help and version
-		options.addOption("h", "help", false, "display help");
-		options.addOption("v", "version", false, "display version");
+		// option for printing help
+		options.addOption(Option.builder("h")
+				.longOpt("help")
+				.desc("Prints help information")
+				.hasArg(false)
+				.build());
 		
-		// create xml
-		options.addOption("c", "create", false, "create xml file");
-		options.addOption("n", "nodes", true, "number of nodes");
-		options.addOption("o", "output", true, "output file");
+		// option for printing version
+		options.addOption(Option.builder("v")
+				.longOpt("version")
+				.desc("Prints version information")
+				.hasArg(false)
+				.build());
 		
-		// create code
-		options.addOption("g", "generate", false, "generate code");
-		options.addOption("i", "input", true, "input file");
+		// option for creating xml
+		options.addOption(Option.builder("c")
+				.longOpt("create")
+				.desc("Creates a model in XML")
+				.hasArg(false)
+				.build());
+		options.addOption(Option.builder("n")
+				.longOpt("nodes")
+				.desc("Number of nodes")
+				.hasArg(true)
+				.argName("NUMBER")
+				.build());
+		options.addOption(Option.builder("o")
+				.longOpt("ofile")
+				.desc("Filename of XML")
+				.hasArg(true)
+				.argName("FILENAME")
+				.build());
+		
+		// option for generating code
+		options.addOption(Option.builder("g")
+				.longOpt("generate")
+				.desc("Generates code from XML")
+				.hasArg(false)
+				.build());
+		options.addOption(Option.builder("i")
+				.longOpt("ifile")
+				.desc("Filename of XML")
+				.hasArg(true)
+				.argName("FILENAME")
+				.build());
+		options.addOption(Option.builder("d")
+				.longOpt("odir")
+				.desc("Directory for the generated code")
+				.hasArg(true)
+				.argName("DIRNAME")
+				.build());
 	}
 	
 	private void printHelp() {
+		Options optionsHelp = new Options();
+		optionsHelp.addOption(options.getOption("help"));
+		optionsHelp.addOption(options.getOption("version"));
+		optionsHelp.addOption(options.getOption("create"));
+		optionsHelp.addOption(options.getOption("generate"));
+		
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("simgen", options);
+		formatter.printHelp("simgen COMMAND", "\nCommands:", optionsHelp, "\nUse \"simgen -command_name -help\" for usage of command_name");
 	}
 	
 	private void printVersion() {
 		System.out.println("simgen - SimulationGenerator version 1.0.0");
+	}
+	
+	private void printCreateHelp() {
+		Options optionsCreate = new Options();
+		optionsCreate.addOption(options.getOption("nodes"));
+		optionsCreate.addOption(options.getOption("ofile"));
+		
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp("simgen -create OPTION...", "\nOptions:", optionsCreate, "\nUse \"simgen -help\" for all available commands");
+	}
+	
+	private void printGenerateHelp() {
+		Options optionsGenerate = new Options();
+		optionsGenerate.addOption(options.getOption("ifile"));
+		optionsGenerate.addOption(options.getOption("odir"));
+		
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp("simgen -generate OPTION...", "\nOptions:" , optionsGenerate, "\nUse \"simgen -help\" for all available commands");
+	}
+	
+	private void printIllegalHelp() {
+		Options optionsHelp = new Options();
+		optionsHelp.addOption(options.getOption("help"));
+		optionsHelp.addOption(options.getOption("version"));
+		optionsHelp.addOption(options.getOption("create"));
+		optionsHelp.addOption(options.getOption("generate"));
+		
+		HelpFormatter formatter = new HelpFormatter();
+		System.out.println("ERROR: Illegal Combination of Commands or Arguments\n");
+		formatter.printHelp("simgen COMMAND", "\nCommands:", optionsHelp, "\nUse \"simgen -command_name -help\" for usage of command_name");
 	}
 	
 	public CmdParseStatus parse() {
@@ -79,32 +155,47 @@ public class CmdParser {
 		
 		// print help
 		if (cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
-				!cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
+				!cmd.hasOption("ofile") && !cmd.hasOption("generate") && !cmd.hasOption("ifile") && !cmd.hasOption("odir")) {
 			printHelp();
+			return CmdParseStatus.OK;
+		}
+		
+		// print create help
+		if (cmd.hasOption("help") && !cmd.hasOption("version") && cmd.hasOption("create") && !cmd.hasOption("nodes") && 
+				!cmd.hasOption("ofile") && !cmd.hasOption("generate") && !cmd.hasOption("ifile") && !cmd.hasOption("odir")) {
+			printCreateHelp();
+			return CmdParseStatus.OK;
+		}
+		
+		// print generate help
+		if (cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
+				!cmd.hasOption("ofile") && cmd.hasOption("generate") && !cmd.hasOption("ifile") && !cmd.hasOption("odir")) {
+			printGenerateHelp();
 			return CmdParseStatus.OK;
 		}
 		
 		// print version
 		if (!cmd.hasOption("help") && cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
-				!cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
+				!cmd.hasOption("ofile") && !cmd.hasOption("generate") && !cmd.hasOption("ifile") && !cmd.hasOption("odir")) {
 			printVersion();
 			return CmdParseStatus.OK;
 		}
 		
 		// create xml
 		if (!cmd.hasOption("help") && !cmd.hasOption("version") && cmd.hasOption("create") && cmd.hasOption("nodes") && 
-				cmd.hasOption("output") && !cmd.hasOption("generate") && !cmd.hasOption("input")) {
-			setXmlProps(new XmlProps(Integer.parseInt(cmd.getOptionValue("nodes")), cmd.getOptionValue("output")));
+				cmd.hasOption("ofile") && !cmd.hasOption("generate") && !cmd.hasOption("ifile") && !cmd.hasOption("odir")) {
+			setXmlProps(new XmlProps(Integer.parseInt(cmd.getOptionValue("nodes")), cmd.getOptionValue("ofile")));
 			return CmdParseStatus.CREATEXML;
 		}
 		
 		// generate code
 		if (!cmd.hasOption("help") && !cmd.hasOption("version") && !cmd.hasOption("create") && !cmd.hasOption("nodes") && 
-				cmd.hasOption("output") && cmd.hasOption("generate") && cmd.hasOption("input")) {
-			setCodeProps(new CodeProps(cmd.getOptionValue("input"), cmd.getOptionValue("output")));
+				!cmd.hasOption("ofile") && cmd.hasOption("generate") && cmd.hasOption("ifile") && cmd.hasOption("odir")) {
+			setCodeProps(new CodeProps(cmd.getOptionValue("ifile"), cmd.getOptionValue("odir")));
 			return CmdParseStatus.GENCODE;
 		}
 		
+		printIllegalHelp();
 		return CmdParseStatus.ILLEGAL;
 	}
 

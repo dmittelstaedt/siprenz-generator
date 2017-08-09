@@ -12,6 +12,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileUtils {
 	
+	// TODO: throw the exception
 	public static void createFile(String toWrite, String pathName) {
 		File file = new File(pathName);
 		try {
@@ -40,7 +41,6 @@ public class FileUtils {
 		return dir.exists() && dir.isDirectory();
 	}
 	
-	// TODO: try catch
 	// http://roufid.com/how-to-delete-folder-recursively-in-java/
 	public static void deleteDir(String dirName) throws IOException {
 		Path directory = Paths.get(dirName);
