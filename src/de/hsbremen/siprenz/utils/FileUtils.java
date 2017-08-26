@@ -12,6 +12,11 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileUtils {
 	
+	public static boolean isFile(String fileName) {
+		File file = new File(fileName);
+		return file.exists();
+	}
+	
 	// TODO: throw the exception
 	public static void createFile(String toWrite, String pathName) {
 		File file = new File(pathName);
