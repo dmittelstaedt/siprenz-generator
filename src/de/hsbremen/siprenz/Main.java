@@ -1,8 +1,8 @@
 package de.hsbremen.siprenz;
 
 
-import de.hsbremen.siprenz.logic.Controller;
-import de.hsbremen.siprenz.logic.SimExecutor;
+import de.hsbremen.siprenz.controller.Controller;
+import de.hsbremen.siprenz.logic.sim.SimExecutor;
 
 public class Main {
 

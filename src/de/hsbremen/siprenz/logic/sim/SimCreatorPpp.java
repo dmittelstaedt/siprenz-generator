@@ -1,4 +1,4 @@
-package de.hsbremen.siprenz.logic;
+package de.hsbremen.siprenz.logic.sim;
 
 import java.util.ArrayList;
 
@@ -7,10 +7,15 @@ import de.hsbremen.siprenz.model.xml.Global;
 import de.hsbremen.siprenz.model.xml.Node;
 import de.hsbremen.siprenz.model.xml.Simulation;
 
-public class SimCreator {
+/**
+ * 
+ * @author david
+ *
+ */
+public class SimCreatorPpp implements SimCreator {
 	
 	//TODO: check wheter nodesCount is greater than 2
-	//TODO: Change ip addresses
+	@Override
 	public Simulation create(int nodesCount) {
 		Global global = new Global(30.0, "iec61850");
 		
@@ -23,7 +28,7 @@ public class SimCreator {
 		
 		ArrayList<Connection> connections = new ArrayList<Connection>();
 		for (int i=1; i<nodesCount; i++) {
-			connections.add(new Connection(nodes.get(0), nodes.get(i), "P2P","5Mbps", "2ms", "10.1.1.0", "255.255.255.252"));
+			connections.add(new Connection(nodes.get(0), nodes.get(i), "P2P","5Mbps", "2ms", "10.1." + i + ".0", "255.255.255.252"));
 		}
 		
 		Simulation simulation = new Simulation();

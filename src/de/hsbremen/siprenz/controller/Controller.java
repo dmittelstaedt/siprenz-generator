@@ -1,5 +1,9 @@
-package de.hsbremen.siprenz.logic;
+package de.hsbremen.siprenz.controller;
 
+import de.hsbremen.siprenz.logic.cmd.CmdParser;
+import de.hsbremen.siprenz.logic.sim.CodeGeneratorPpp;
+import de.hsbremen.siprenz.logic.sim.SimCreatorPpp;
+import de.hsbremen.siprenz.logic.xml.XmlParser;
 import de.hsbremen.siprenz.model.gen.CodeProps;
 import de.hsbremen.siprenz.model.gen.XmlProps;
 import de.hsbremen.siprenz.model.num.CmdParseStatus;
@@ -9,9 +13,9 @@ public class Controller {
 	
 	private String args[];
 	private CmdParser cmdParser;
-	private SimCreator simCreator;
+	private SimCreatorPpp simCreator;
 	private XmlParser xmlParser;
-	private CodeGenerator codeGenerator;
+	private CodeGeneratorPpp codeGenerator;
 	
 	public Controller(String args[]) {
 		this.args = args;
@@ -66,9 +70,9 @@ public class Controller {
 	
 	private void init() {
 		cmdParser = new CmdParser(args);
-		simCreator = new SimCreator();
+		simCreator = new SimCreatorPpp();
 		xmlParser = new XmlParser();
-		codeGenerator = new CodeGenerator();
+		codeGenerator = new CodeGeneratorPpp();
 	}
 	
 	private void createXml() {

@@ -1,4 +1,4 @@
-package de.hsbremen.siprenz.logic;
+package de.hsbremen.siprenz.logic.sim;
 
 import java.io.IOException;
 import java.util.ArrayList;

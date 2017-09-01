@@ -1,4 +1,4 @@
-package de.hsbremen.siprenz.logic;
+package de.hsbremen.siprenz.logic.xml;
 
 import java.io.File;
 

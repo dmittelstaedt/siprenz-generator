@@ -1,4 +1,4 @@
-package de.hsbremen.siprenz.logic;
+package de.hsbremen.siprenz.logic.sim;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,14 +11,19 @@ import de.hsbremen.siprenz.model.xml.Simulation;
 import de.hsbremen.siprenz.utils.FileUtils;
 import de.hsbremen.siprenz.utils.StreamUtils;
 
-public class CodeGenerator {
+/**
+ * 
+ * @author david
+ *
+ */
+public class CodeGeneratorPpp implements CodeGenerator{
 	
 	// Define resources
 	private final String[] utilsResources = {"ip-helper.h", "ip-helper.cc", "string-helper.h", "string-helper.cc"};
 	private final String utils = "/utils";
 	
+	@Override
 	public void generate(Simulation simulation, String dirName) {
-		
 		boolean isSave = false;
 		
 		isSave = generateDirStructure(dirName);
@@ -34,6 +39,11 @@ public class CodeGenerator {
 	}
 	
 	// TODO: message if directory exists
+	/**
+	 * 
+	 * @param dirName
+	 * @return
+	 */
 	private boolean generateDirStructure(String dirName) {
 		
 		boolean isCreated = false;
@@ -63,6 +73,10 @@ public class CodeGenerator {
 		return isCreated;
 	}
 	
+	/**
+	 * 
+	 * @param dirName
+	 */
 	private void generateUtils(String dirName) {
 		
 		for (int i=0; i<utilsResources.length; i++) {
@@ -268,6 +282,10 @@ public class CodeGenerator {
 		FileUtils.createFile(code.toString(), pathName);
 	}
 	
+	/**
+	 * 
+	 * @param pathName
+	 */
 	private void generateBuild(String pathName) {
 		
 		StringBuilder code = new StringBuilder();

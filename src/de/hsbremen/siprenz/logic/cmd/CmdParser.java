@@ -1,4 +1,4 @@
-package de.hsbremen.siprenz.logic;
+package de.hsbremen.siprenz.logic.cmd;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
