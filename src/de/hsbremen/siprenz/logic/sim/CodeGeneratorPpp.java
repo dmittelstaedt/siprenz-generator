@@ -12,14 +12,23 @@ import de.hsbremen.siprenz.utils.FileUtils;
 import de.hsbremen.siprenz.utils.StreamUtils;
 
 /**
+ * @brief Implementation of the CodeGenerataor interface for P2P models
  * 
- * @author david
+ * 
+ * 
+ * @author David Mittelstädt
  *
  */
 public class CodeGeneratorPpp implements CodeGenerator{
 	
-	// Define resources
+	/**
+	 * Definition of the resources
+	 */
 	private final String[] utilsResources = {"ip-helper.h", "ip-helper.cc", "string-helper.h", "string-helper.cc"};
+	
+	/**
+	 * Definition of the resource directory
+	 */
 	private final String utils = "/utils";
 	
 	@Override
@@ -40,9 +49,10 @@ public class CodeGeneratorPpp implements CodeGenerator{
 	
 	// TODO: message if directory exists
 	/**
+	 * @brief Generates the necessary directories
 	 * 
-	 * @param dirName
-	 * @return
+	 * @param dirName directory name
+	 * @return true or false
 	 */
 	private boolean generateDirStructure(String dirName) {
 		
@@ -74,6 +84,7 @@ public class CodeGeneratorPpp implements CodeGenerator{
 	}
 	
 	/**
+	 * @brief Generates the utils 
 	 * 
 	 * @param dirName
 	 */

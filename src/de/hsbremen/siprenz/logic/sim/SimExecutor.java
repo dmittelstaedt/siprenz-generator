@@ -7,6 +7,14 @@ import java.util.List;
 import de.hsbremen.siprenz.utils.FileUtils;
 import de.hsbremen.siprenz.utils.StreamUtils;
 
+/**
+ * @brief Class for executing a simulation
+ * 
+ * Not full implemented
+ * 
+ * @author David Mittelstädt
+ *
+ */
 public class SimExecutor {
 	
 	String command = "/home/david/Documents/my-hello.sh";
@@ -14,6 +22,9 @@ public class SimExecutor {
 	String arg2 = "Bremen";
 	List<String> args = new ArrayList<String>();
 	
+	/**
+	 * @brief Start a simulation
+	 */
 	public void start() {
 		
 		if (FileUtils.isFile(command)) {

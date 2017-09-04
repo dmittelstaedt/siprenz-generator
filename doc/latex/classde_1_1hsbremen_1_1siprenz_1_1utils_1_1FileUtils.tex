@@ -1,0 +1,153 @@
+\hypertarget{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils}{}\section{de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils Class Reference}
+\label{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils}\index{de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils@{de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils}}
+
+
+Class for file and directory operations.  
+
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static boolean \hyperlink{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a9b43144fe6eeb361624d509d4bf500ce}{is\+File} (String file\+Name)
+\item 
+static void \hyperlink{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a101a622a781056e119c9ee1de1c4cf94}{create\+File} (String to\+Write, String path\+Name)
+\begin{DoxyCompactList}\small\item\em Creating a new File with given content. \end{DoxyCompactList}\item 
+static boolean \hyperlink{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_aca7379519688339682d22353d724cb88}{create\+Dir} (String dir\+Name)
+\begin{DoxyCompactList}\small\item\em Creating a directory. \end{DoxyCompactList}\item 
+static boolean \hyperlink{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a5aec54ce389ce7d4e2dadad1aff0b0bc}{create\+Dirs} (String dir\+Path)
+\begin{DoxyCompactList}\small\item\em Creating a directory tree if parent directory doesn\textquotesingle{}t exist. \end{DoxyCompactList}\item 
+static boolean \hyperlink{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a22c3f496d3e6878705542d37bd419b81}{is\+Dir} (String dir\+Name)
+\begin{DoxyCompactList}\small\item\em Checks existing directory. \end{DoxyCompactList}\item 
+static void \hyperlink{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a6ab1fc80abb5196aa246d9026a75ed7a}{delete\+Dir} (String dir\+Name)  throws I\+O\+Exception 
+\begin{DoxyCompactList}\small\item\em Deleting recursively directories. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for file and directory operations. 
+
+\begin{DoxyAuthor}{Author}
+David Mittelstädt 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\index{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}!create\+Dir@{create\+Dir}}
+\index{create\+Dir@{create\+Dir}!de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}}
+\subsubsection[{\texorpdfstring{create\+Dir(\+String dir\+Name)}{createDir(String dirName)}}]{\setlength{\rightskip}{0pt plus 5cm}static boolean de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils.\+create\+Dir (
+\begin{DoxyParamCaption}
+\item[{String}]{dir\+Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_aca7379519688339682d22353d724cb88}{}\label{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_aca7379519688339682d22353d724cb88}
+
+
+Creating a directory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+Name} & name of the directory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether directory was successfully created 
+\end{DoxyReturn}
+\index{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}!create\+Dirs@{create\+Dirs}}
+\index{create\+Dirs@{create\+Dirs}!de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}}
+\subsubsection[{\texorpdfstring{create\+Dirs(\+String dir\+Path)}{createDirs(String dirPath)}}]{\setlength{\rightskip}{0pt plus 5cm}static boolean de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils.\+create\+Dirs (
+\begin{DoxyParamCaption}
+\item[{String}]{dir\+Path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a5aec54ce389ce7d4e2dadad1aff0b0bc}{}\label{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a5aec54ce389ce7d4e2dadad1aff0b0bc}
+
+
+Creating a directory tree if parent directory doesn\textquotesingle{}t exist. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+Path} & path to directory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether directories were successfully created 
+\end{DoxyReturn}
+\index{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}!create\+File@{create\+File}}
+\index{create\+File@{create\+File}!de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}}
+\subsubsection[{\texorpdfstring{create\+File(\+String to\+Write, String path\+Name)}{createFile(String toWrite, String pathName)}}]{\setlength{\rightskip}{0pt plus 5cm}static void de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils.\+create\+File (
+\begin{DoxyParamCaption}
+\item[{String}]{to\+Write, }
+\item[{String}]{path\+Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a101a622a781056e119c9ee1de1c4cf94}{}\label{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a101a622a781056e119c9ee1de1c4cf94}
+
+
+Creating a new File with given content. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em to\+Write} & content of the file \\
+\hline
+{\em path\+Name} & path to file \\
+\hline
+\end{DoxyParams}
+\index{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}!delete\+Dir@{delete\+Dir}}
+\index{delete\+Dir@{delete\+Dir}!de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}}
+\subsubsection[{\texorpdfstring{delete\+Dir(\+String dir\+Name)}{deleteDir(String dirName)}}]{\setlength{\rightskip}{0pt plus 5cm}static void de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils.\+delete\+Dir (
+\begin{DoxyParamCaption}
+\item[{String}]{dir\+Name}
+\end{DoxyParamCaption}
+) throws I\+O\+Exception\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a6ab1fc80abb5196aa246d9026a75ed7a}{}\label{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a6ab1fc80abb5196aa246d9026a75ed7a}
+
+
+Deleting recursively directories. 
+
+\begin{DoxySeeAlso}{See also}
+// \href{http://roufid.com/how-to-delete-folder-recursively-in-java/}{\tt http\+://roufid.\+com/how-\/to-\/delete-\/folder-\/recursively-\/in-\/java/}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+Name} & name of the parent directory \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em I\+O\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+\index{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}!is\+Dir@{is\+Dir}}
+\index{is\+Dir@{is\+Dir}!de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}}
+\subsubsection[{\texorpdfstring{is\+Dir(\+String dir\+Name)}{isDir(String dirName)}}]{\setlength{\rightskip}{0pt plus 5cm}static boolean de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils.\+is\+Dir (
+\begin{DoxyParamCaption}
+\item[{String}]{dir\+Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a22c3f496d3e6878705542d37bd419b81}{}\label{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a22c3f496d3e6878705542d37bd419b81}
+
+
+Checks existing directory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+Name} & name of the directory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether directory exists 
+\end{DoxyReturn}
+\index{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}!is\+File@{is\+File}}
+\index{is\+File@{is\+File}!de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils@{de\+::hsbremen\+::siprenz\+::utils\+::\+File\+Utils}}
+\subsubsection[{\texorpdfstring{is\+File(\+String file\+Name)}{isFile(String fileName)}}]{\setlength{\rightskip}{0pt plus 5cm}static boolean de.\+hsbremen.\+siprenz.\+utils.\+File\+Utils.\+is\+File (
+\begin{DoxyParamCaption}
+\item[{String}]{file\+Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a9b43144fe6eeb361624d509d4bf500ce}{}\label{classde_1_1hsbremen_1_1siprenz_1_1utils_1_1FileUtils_a9b43144fe6eeb361624d509d4bf500ce}
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & name of the file to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether file exists 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/de/hsbremen/siprenz/utils/File\+Utils.\+java\end{DoxyCompactItemize}

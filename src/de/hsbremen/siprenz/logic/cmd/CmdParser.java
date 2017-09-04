@@ -11,34 +11,80 @@ import de.hsbremen.siprenz.model.gen.CodeProps;
 import de.hsbremen.siprenz.model.gen.XmlProps;
 import de.hsbremen.siprenz.model.num.CmdParseStatus;
 
+/**
+ * @brief CmdParser
+ * 
+ * @author David Mittelstädt
+ *
+ */
 public class CmdParser {
 	
+	/**
+	 * Command-line argument
+	 */
 	private String args[];
+	
+	/**
+	 * Options
+	 */
 	private Options options;
+	
+	/**
+	 * Properties of the XML
+	 */
 	private XmlProps xmlProps;
+	
+	/**
+	 * Properties of the code
+	 */
 	private CodeProps codeProps;
 	
+	/**
+	 * @brief Constructor
+	 * 
+	 * @param args Command-line arguments
+	 */
 	public CmdParser(String args[]) {
 		this.args = args;
 		init();
 	}
 	
+	/**
+	 * 
+	 * @return Properties of the XML
+	 */
 	public XmlProps getXmlProps() {
 		return xmlProps;
 	}
 
+	/**
+	 * 
+	 * @param xmlProps
+	 */
 	private void setXmlProps(XmlProps xmlProps) {
 		this.xmlProps = xmlProps;
 	}
 
+	/**
+	 * 
+	 * @return Properties of the code
+	 */
 	public CodeProps getCodeProps() {
 		return codeProps;
 	}
 
+	/**
+	 * 
+	 * @param codeProps
+	 */
 	private void setCodeProps(CodeProps codeProps) {
 		this.codeProps = codeProps;
 	}
 
+	/**
+	 * @brief Initialization of the cmd parser
+	 * 
+	 */
 	private void init() {
 		
 		options = new Options();
@@ -96,6 +142,9 @@ public class CmdParser {
 				.build());
 	}
 	
+	/**
+	 * 
+	 */
 	private void printHelp() {
 		Options optionsHelp = new Options();
 		optionsHelp.addOption(options.getOption("help"));
@@ -107,10 +156,16 @@ public class CmdParser {
 		formatter.printHelp("simgen COMMAND [OPTION]...", "\nCommands:", optionsHelp, "\nUse \"simgen -command -help\" for usage of command");
 	}
 	
+	/**
+	 * @brief Prints version
+	 */
 	private void printVersion() {
 		System.out.println("simgen - SimulationGenerator version 1.0.0");
 	}
 	
+	/**
+	 * 
+	 */
 	private void printCreateHelp() {
 		Options optionsCreate = new Options();
 		optionsCreate.addOption(options.getOption("nodes"));
@@ -120,6 +175,9 @@ public class CmdParser {
 		formatter.printHelp("simgen -create OPTION...", "\nOptions:", optionsCreate, "\nUse \"simgen -help\" for all available commands");
 	}
 	
+	/**
+	 * 
+	 */
 	private void printGenerateHelp() {
 		Options optionsGenerate = new Options();
 		optionsGenerate.addOption(options.getOption("ifile"));
@@ -129,6 +187,9 @@ public class CmdParser {
 		formatter.printHelp("simgen -generate OPTION...", "\nOptions:" , optionsGenerate, "\nUse \"simgen -help\" for all available commands");
 	}
 	
+	/**
+	 * 
+	 */
 	private void printIllegalHelp() {
 		Options optionsHelp = new Options();
 		optionsHelp.addOption(options.getOption("help"));
@@ -141,6 +202,10 @@ public class CmdParser {
 		formatter.printHelp("simgen COMMAND [OPTION]...", "\nCommands:", optionsHelp, "\nUse \"simgen -command -help\" for usage of command");
 	}
 	
+	/**
+	 * 
+	 * @return Enumeration with the return code
+	 */
 	public CmdParseStatus parse() {
 		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;

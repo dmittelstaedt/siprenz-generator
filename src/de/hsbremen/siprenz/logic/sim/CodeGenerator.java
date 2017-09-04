@@ -3,8 +3,9 @@ package de.hsbremen.siprenz.logic.sim;
 import de.hsbremen.siprenz.model.xml.Simulation;
 
 /**
+ * @brief The interfaces for code generators
  * 
- * @author david
+ * @author David Mittelstädt
  *
  */
 public interface CodeGenerator {

@@ -9,14 +9,49 @@ import de.hsbremen.siprenz.model.gen.XmlProps;
 import de.hsbremen.siprenz.model.num.CmdParseStatus;
 import de.hsbremen.siprenz.model.xml.Simulation;
 
+/**
+ * @brief The controller of the SimGen-Tool
+ * 
+ * This class controls the flow of the program and
+ * calls the different functions of the other classes.
+ * 
+ * @author David Mittelstädt
+ *
+ */
 public class Controller {
 	
+	/**
+	 * Command-line arguments 
+	 */
 	private String args[];
+	
+	/**
+	 * CmdParser
+	 */
 	private CmdParser cmdParser;
+	
+	/**
+	 * SimCreatorPpp
+	 */
 	private SimCreatorPpp simCreator;
+	
+	/**
+	 * XmlParser
+	 */
 	private XmlParser xmlParser;
+	
+	/**
+	 * CodeGeneratorPpp
+	 */
 	private CodeGeneratorPpp codeGenerator;
 	
+	/**
+	 * @brief Constructor
+	 * 
+	 * Calls the initialization of this class
+	 * 
+	 * @param args arguments given from the command-line
+	 */
 	public Controller(String args[]) {
 		this.args = args;
 		init();
@@ -30,8 +65,14 @@ public class Controller {
 		codeGenerator.generate(simulation, test);
 	}
 	
-	// TODO: move output to CodeGenerator and SimCreator 
+	/**
+	 * @brief Function to start the controller.
+	 * 
+	 * Only functions which can be called from other
+	 * classes
+	 */
 	public void start() {
+		// TODO: move output to CodeGenerator and SimCreator 
 		CmdParseStatus cmdParseStatus = cmdParser.parse();
 		
 		switch (cmdParseStatus) {
@@ -68,6 +109,9 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * @brief Initializes the controller
+	 */
 	private void init() {
 		cmdParser = new CmdParser(args);
 		simCreator = new SimCreatorPpp();
@@ -75,6 +119,11 @@ public class Controller {
 		codeGenerator = new CodeGeneratorPpp();
 	}
 	
+	/**
+	 * @brief Creates the XML-model
+	 * 
+	 * 
+	 */
 	private void createXml() {
 		XmlProps xmlProps = cmdParser.getXmlProps();
 		if (xmlProps != null) {
@@ -83,8 +132,12 @@ public class Controller {
 		}
 	}
 	
-	// TODO: change arguments to directory, not file
+	/**
+	 * @brief Generates the code
+	 * 
+	 */
 	private void genCode() {
+		// TODO: change arguments to directory, not file
 		CodeProps codeProps = cmdParser.getCodeProps();
 		if (codeProps != null) {
 			Simulation simulation = xmlParser.read(codeProps.getInputFile());

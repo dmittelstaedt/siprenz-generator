@@ -5,9 +5,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
+/**
+ * Class for some stream operations.
+ * 
+ * @author David Mittelstädt
+ *
+ */
 public class StreamUtils {
 	
+	/**
+	 * Creates a String from inputStrem
+	 * 
+	 * @param inputStream InputStream
+	 * @return String
+	 */
 	public static String getStringFromInputStream (InputStream inputStream) {
 		BufferedReader bufferedReader = null;
 		StringBuilder stringBuilder = new StringBuilder();

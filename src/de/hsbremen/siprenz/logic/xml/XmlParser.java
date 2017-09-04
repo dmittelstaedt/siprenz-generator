@@ -9,8 +9,25 @@ import javax.xml.bind.Unmarshaller;
 
 import de.hsbremen.siprenz.model.xml.Simulation;
 
+/**
+ * Class for parsing the XML.
+ * 
+ * This class is used for parsing the model from a
+ * XML file and writing a model to a XML file.
+ * 
+ * @author David Mittelstädt
+ *
+ */
 public class XmlParser {
 	
+	/**
+	 * Writes simulation to XML.
+	 * 
+	 * This function writes a simulation model to a XMl File.
+	 * 
+	 * @param simulation Simulation to write to XML
+	 * @param pathName Name of the full path to save the XML
+	 */
 	public void write(Simulation simulation, String pathName) {
 		
 		try {
@@ -29,6 +46,14 @@ public class XmlParser {
 			}
 	}
 	
+	/**
+	 * Reads simulation from XML.
+	 * 
+	 * This functions reads a simulation model from XML file.
+	 * 
+	 * @param pathName full path of the XML file to read
+	 * @return simulation
+	 */
 	public Simulation read(String pathName) {
 		
 		Simulation simulation;

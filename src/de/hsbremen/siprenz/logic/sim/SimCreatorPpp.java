@@ -8,8 +8,10 @@ import de.hsbremen.siprenz.model.xml.Node;
 import de.hsbremen.siprenz.model.xml.Simulation;
 
 /**
+ * @brief Implementation of the SimCreator interface for P2P
+ * models in ns-3
  * 
- * @author david
+ * @author David Mittelstädt
  *
  */
 public class SimCreatorPpp implements SimCreator {
